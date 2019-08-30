@@ -10,7 +10,6 @@ import (
 
 // YTVideo : contains useful info about a given video
 type YTVideo struct {
-	ID    string
 	Title string
 }
 
@@ -35,7 +34,6 @@ func getTitlesFromPlaylistID(playListID string, apiKey string) []YTVideo {
 	for ok := true; ok; ok = !(playList.NextPageToken == "") {
 		for _, item := range playList.Items {
 			var video YTVideo
-			video.ID = item.Id
 			video.Title = item.Snippet.Title
 			videos = append(videos, video)
 		}
