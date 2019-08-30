@@ -1,20 +1,17 @@
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
+	"flag"
 	"net/http"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	b, err := ioutil.ReadFile(".APIKEY")
-	if err != nil {
-		fmt.Print(err)
-	}
-	apiKey := strings.TrimSuffix(string(b), "\n")
+
+	var apiKey string
+	flag.StringVar(&apiKey, "api", "", "Youtube API Key")
+	flag.Parse()
 
 	r := gin.Default()
 	r.GET("/playlist/:id", func(c *gin.Context) {

@@ -5,4 +5,4 @@ COPY src/* ./
 
 RUN go get -v
 
-CMD GOREsT
+CMD GOREsT -api $API_KEY
