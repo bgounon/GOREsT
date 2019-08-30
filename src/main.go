@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	b, err := ioutil.ReadFile("../.APIKEY")
+	b, err := ioutil.ReadFile(".APIKEY")
 	if err != nil {
 		fmt.Print(err)
 	}
