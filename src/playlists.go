@@ -22,6 +22,7 @@ func getTitlesFromPlaylistID(playListID string, youtubeService *youtube.Service)
 		for _, item := range playList.Items {
 			var video YTVideo
 			video.Title = item.Snippet.Title
+			video.ID = item.Snippet.ResourceId.VideoId
 			video.URL = buildURLFromVideoID(item.Snippet.ResourceId.VideoId)
 			videos = append(videos, video)
 		}
@@ -33,4 +34,17 @@ func getTitlesFromPlaylistID(playListID string, youtubeService *youtube.Service)
 	}
 
 	return videos
+}
+
+func embedAllVideos(playListID string, youtubeService *youtube.Service) string {
+	videos := getTitlesFromPlaylistID(playListID, youtubeService)
+
+	var html string
+	html = "<html>\n<body>\n<div align='center'>\n"
+	for key, video := range videos {
+		html += buildEmbedCodeFromVideoID(key, video.ID)
+	}
+	html += "</div>\n</html>\n</body>"
+
+	return html
 }

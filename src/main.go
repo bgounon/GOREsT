@@ -16,5 +16,11 @@ func main() {
 		c.JSON(http.StatusOK, getTitlesFromPlaylistID(id, youtubeService))
 	})
 
+	r.GET("/playlist/:id/embed", func(c *gin.Context) {
+		id := c.Param("id")
+		c.Header("Content-Type", "text/html")
+		c.String(http.StatusOK, embedAllVideos(id, youtubeService))
+	})
+
 	r.Run()
 }

@@ -12,6 +12,7 @@ import (
 // YTVideo : contains useful info about a given video
 type YTVideo struct {
 	URL   string
+	ID    string
 	Title string
 }
 
