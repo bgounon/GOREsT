@@ -1,26 +1,13 @@
 package main
 
 import (
-	"context"
 	"fmt"
 
-	"google.golang.org/api/option"
 	"google.golang.org/api/youtube/v3"
 )
 
-// YTVideo : contains useful info about a given video
-type YTVideo struct {
-	Title string
-}
-
-func getTitlesFromPlaylistID(playListID string, apiKey string) []YTVideo {
-
-	ctx := context.Background()
-	youtubeService, err := youtube.NewService(ctx, option.WithAPIKey(apiKey))
-	if err != nil {
-		fmt.Print(err)
-	}
-
+func getTitlesFromPlaylistID(playListID string, youtubeService *youtube.Service) []YTVideo {
+	fmt.Println(youtubeService)
 	call := youtubeService.PlaylistItems.List("snippet")
 	call = call.PlaylistId(playListID)
 	call = call.MaxResults(50)
@@ -35,6 +22,7 @@ func getTitlesFromPlaylistID(playListID string, apiKey string) []YTVideo {
 		for _, item := range playList.Items {
 			var video YTVideo
 			video.Title = item.Snippet.Title
+			video.URL = buildURLFromVideoID(item.Snippet.ResourceId.VideoId)
 			videos = append(videos, video)
 		}
 
