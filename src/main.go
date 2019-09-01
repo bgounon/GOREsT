@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -9,10 +8,7 @@ import (
 
 func main() {
 
-	var apiKey string
-	flag.StringVar(&apiKey, "api", "", "Youtube API Key")
-	flag.Parse()
-	youtubeService := youtubeInit(apiKey)
+	youtubeService := youtubeInit()
 
 	r := gin.Default()
 	r.GET("/playlist/:id", func(c *gin.Context) {
